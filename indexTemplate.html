@@ -1,10 +1,21 @@
 <!DOCTYPE html>
+
 <meta charset="utf-8">
+<head>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/PapaParse-4.1.2/papaparse.min.js"></script>
+    <script src="js/readFiles.js"></script>
+</head>
 <style>
 
 .counties {
-fill:none;
-  stroke: black;
+  fill: black;
+  stroke: #000;
+  stroke-linejoin: round;
 }
 
 .states {
@@ -24,32 +35,19 @@ fill:none;
 .q8-9 { fill:rgb(8,48,107); }
 
 </style>
+<body>
 <svg width="960" height="600"></svg>
-<script src="//d3js.org/d3.v4.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery-3.1.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/PapaParse-4.1.2/papaparse.min.js"></script>
-    <script src="js/readFiles.js"></script>
+
 <script>
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
-d3.queue()
-    .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
-    .await(ready);
-
-function ready(error, us) {
-
-  if (error) throw error;
-readfile("B02001_001E","county");
-  var rateById = d3.map();
+var rateById = d3.map();
 
 var quantize = d3.scaleQuantize()
-    .domain([0, d3.max(arr[0])])
+    .domain([0, 0.15])
     .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
 
 var projection = d3.geoAlbersUsa()
@@ -58,14 +56,24 @@ var projection = d3.geoAlbersUsa()
 
 var path = d3.geoPath()
     .projection(projection);
-  
+
+d3.queue()
+    .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
+    .defer(d3.tsv, "unemployment.tsv", function(d) { 
+	rateById.set(d.id, +d.rate); 
+	})
+    .await(ready);
+
+function ready(error, us) {
+  if (error) throw error;
+
   svg.append("g")
       .attr("class", "counties")
     .selectAll("path")
       .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
       .attr("class", function(d) { 
-	  return quantize(arr[0][arr[1].indexOf(d.id)]); 
+	  return quantize(rateById.get(d.id)); 
 	  })
       .attr("d", path);
 
@@ -73,8 +81,8 @@ var path = d3.geoPath()
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("class", "states")
       .attr("d", path);
-
-console.log(us);
 }
 
 </script>
+</body>
+</html>
