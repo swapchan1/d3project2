@@ -2,20 +2,22 @@
 {
     fill: gray;
     stroke: black;
+    stroke-width: 0.1px;
 }
 
 path
 {
     fill: white;
     stroke: black;
-    stroke-width: .2px;
+    stroke-width: .1px;
 }
 
 .states
 {
     fill: none;
-    stroke: #fff;
+    stroke: #black;
     stroke-linejoin: round;
+    stroke-width: 0.1px;
 }
 
 .q0-9
