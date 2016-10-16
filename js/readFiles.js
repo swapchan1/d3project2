@@ -43,6 +43,5 @@ function readfile(name,type){
 			arr.push(d);
 			arr.push(d1);
 			console.log(arr);
-			
 		}
 		);}
