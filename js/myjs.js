@@ -56,6 +56,7 @@ function ready(error, us, uscounty, usstate) {
     arr.push(d);
     arr.push(d1);
 
+    console.log("array", arr);
 
     var rateById = d3.map();
 
@@ -79,6 +80,7 @@ function ready(error, us, uscounty, usstate) {
             .data(topojson.feature(us, us.objects.counties).features)
             .enter().append("path")
             .attr("class", function(d) {
+                console.log("indexof d.id", arr[0][arr[1].indexOf(d.id)]);
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .attr("d", path)
