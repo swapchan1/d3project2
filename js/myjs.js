@@ -67,7 +67,7 @@ function ready(error, us, uscounty, usstate) {
         }));
 
     var projection = d3.geoAlbersUsa()
-        .scale(1280)
+        .scale(960)
         .translate([width / 2, height / 2]);
 
     var path = d3.geoPath()
