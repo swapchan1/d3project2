@@ -83,6 +83,14 @@ $("input[name=disp]").change(function() {
 
 function drawMap(error, usdata) {
 
+<<<<<<< HEAD
+=======
+    console.log("us information", us);
+
+    one = us;
+    two = uscounty;
+    three = usstate;
+>>>>>>> origin/master
     var d = [],
         d1 = [];
 
