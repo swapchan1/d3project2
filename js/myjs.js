@@ -67,6 +67,8 @@ $("input[name=disp]").change(function() {
 
 function ready(error, us, uscounty, usstate) {
 
+    console.log("us information", us);
+
     one = us;
     two = uscounty;
     three = usstate;
