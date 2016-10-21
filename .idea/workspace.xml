@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb2bd04-6ae6-4324-9113-5e3c308ef1e2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/mycss.css" afterPath="$PROJECT_DIR$/css/mycss.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/myjs.js" afterPath="$PROJECT_DIR$/js/myjs.js" />
     </list>
     <ignored path="d3project2.iws" />
@@ -57,7 +55,7 @@
       <file leaf-file-name="myjs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/myjs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.87157536">
+            <state vertical-scroll-proportion="3.2020547">
               <caret line="151" column="14" selection-start-line="151" selection-start-column="14" selection-end-line="151" selection-end-column="14" />
               <folding>
                 <element signature="n#!!block;n#baseData#0" expanded="false" />
@@ -255,7 +253,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/myjs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87157536">
+        <state vertical-scroll-proportion="3.2020547">
           <caret line="151" column="14" selection-start-line="151" selection-start-column="14" selection-end-line="151" selection-end-column="14" />
           <folding>
             <element signature="n#!!block;n#baseData#0" expanded="false" />
