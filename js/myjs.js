@@ -11,15 +11,24 @@ $(document).ready(function() {
     dataselection = "Total population within the locality";
     queue()
         .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
-        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B02001_001E&for=state:*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
         .await(ready);
 });
 
+//ready function always takes error and results parameters
 function ready(error, us1, data1) {
+
+    console.log(us1);
+    console.log(data1);
+
     us = us1;
     one = data1;
     drawMap(null, one);
+
 }
+
+var stateNameObj = [];
+var countyNameObj = [];
 
 function baseData(dataselection) {
     if (dataselection == "Total population within the locality") {
@@ -81,20 +90,37 @@ $("input[name=disp]").change(function() {
         .await(drawMap);
 });
 
+/**
+ * drawMap function starts here.
+ */
+
+
+//first time passing us state data
 function drawMap(error, usdata) {
 
     var d = [],
         d1 = [];
 
     if (scselection == "county") {
+
+        // console.log(usdata.splice(0, 1));
+        countyNameObj.length = 0;
         usdata.forEach(function(element) {
+            var nameObj = {};
+            nameObj[element[1]] = element[0];
+            countyNameObj.push(nameObj);
             if (element[1] > 0)
                 d.push(parseInt(element[1]));
             if (element[1] > 0)
                 d1.push(parseInt(element[2] + element[3]));
         });
     } else {
+        // console.log(usdata.splice(0, 1));
+        stateNameObj.length = 0;
         usdata.forEach(function(element) {
+            var nameObj = {};
+            nameObj[element[1]] = element[0];
+            stateNameObj.push(nameObj);
             if (element[1] > 0)
                 d.push(parseInt(element[1]));
             if (element[1] > 0)
@@ -106,6 +132,12 @@ function drawMap(error, usdata) {
     var arr = [];
     arr.push(d);
     arr.push(d1);
+
+    // console.log("main array", arr);
+    // console.log(stateNameObj);
+    //
+    // console.log("county obj", arr);
+    // console.log(countyNameObj);
 
     var quantize = d3.scale.linear()
         .domain([d3.min(arr[0]), d3.max(arr[0])])
@@ -120,23 +152,40 @@ function drawMap(error, usdata) {
         .projection(projection);
     svg.selectAll('g').remove();
     if (scselection == "county") {
+
+        /**
+         * tooltip code trial
+         */
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+
+                var prop = arr[0][arr[1].indexOf(d.id)];
+                var index = parseFloat([arr[1].indexOf(d.id)]);
+
+                return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + prop + "<span>";
+
+            });
+        /**
+         * tooltip code ends
+         */
+
+        svg.call(tip);
+
         svg.append("g")
             .attr("class", "counties")
             .selectAll("path")
             .data(topojson.feature(us, us.objects.counties).features)
             .enter().append("path")
             .style("fill", function(d) {
-                //console.log("indexof d.id", arr[0][arr[1].indexOf(d.id)]);
+
+                // console.log("indexof d.id", arr[0][arr[1].indexOf(d.id)]);
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .attr("d", path)
-            .on("mouseover", function(d) {
-
-                //console.log(arr[0][arr[1].indexOf(d.id)]);
-            })
-            .on("mouseleave", function(d) {
-                //console.log(arr[0][arr[1].indexOf(d.id)]);
-            });
+            .on("mouseover", tip.show)
+            .on("mouseleave", tip.hide);
         svg.append("g")
             .selectAll("path")
             .data(topojson.feature(us, us.objects.states).features)
@@ -144,25 +193,54 @@ function drawMap(error, usdata) {
             .attr("d", path)
             .classed("states", "true");
     } else {
+
+        /**
+         * tooltip code trial
+         */
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+
+                var prop = arr[0][arr[1].indexOf(d.id)];
+                var index = parseFloat([arr[1].indexOf(d.id)]);
+
+                return "<strong>" + stateNameObj[index][prop] + " : </strong> <span>" + prop + "<span>";
+
+            });
+        /**
+         * tooltip code ends
+         */
+
+        svg.call(tip);
+
         svg.append("g")
             .selectAll("path")
             .data(topojson.feature(us, us.objects.states).features)
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
+
+                // console.log(d.id);
+                // console.log(arr[0]);
+                // console.log(arr[1]);
+                // console.log(arr[1].indexOf(d.id));
+                // console.log(quantize(arr[0][arr[1].indexOf(d.id)]));
+
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .classed("states", "true")
-            .on("mouseover", function(d) {
-                //console.log(arr[0][arr[1].indexOf(d.id)]);
-            })
-            .on("mouseleave", function(d) {
-                //console.log(arr[0][arr[1].indexOf(d.id)]);
-            });
+            .on("mouseover", tip.show)
+            .on("mouseleave", tip.hide);
 
     }
     pieChart("pie1");
 }
+
+/**
+ * drawMap function ends here.
+ */
+
 
 function pieChart(pienumber) {
     if (dataselection == "Total population within the locality") {

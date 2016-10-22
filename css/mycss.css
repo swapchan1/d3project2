@@ -35,3 +35,45 @@ path
     border-radius: 0;
     background-color: #5e5e5e;
 }
+/**
+ * tooltip css
+ */
+.d3-tip
+{
+    font-weight: bold;
+    line-height: 1;
+
+    padding: 12px;
+
+    color: #fff;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, .8);
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after
+{
+    font-size: 10px;
+    line-height: 1;
+
+    position: absolute;
+
+    display: inline;
+
+    box-sizing: border-box;
+    width: 100%;
+
+    content: '\25BC';
+    text-align: center;
+
+    color: rgba(0, 0, 0, .8);
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after
+{
+    top: 100%;
+    left: 0;
+
+    margin: -1px 0 0 0;
+}
