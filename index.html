@@ -7,85 +7,86 @@
 </head>
 
 <body>
-<div class="container" style="border-style: solid; border-color: black;border-radius: 10px;">
-    <div class="row1" >
-        <div class="col-md-2" style="padding-left: 15px; padding-right: 15px;">
-            <div>
-                <div class="row">
-                    <p style="margin-top: 20px">Dataset:</p>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Total population within the locality</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Age distribution broken down by sex</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Median age by sex</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Race</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Living arrangement for adults (18 years and over)</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Place of birth by nativity</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Median household income</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Per capita income</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Income to poverty-level ratio</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Poverty level by place of birth</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Educational attainment by place of birth</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Travel time to work</button>
-                </div>
-                <div class="row">
-                    <button class="btn sidemenuitem">Means of transportation to work</button>
+    <div class="container" style="border-style: solid; border-color: black;border-radius: 10px;">
+        <div class="row1">
+            <div class="col-md-2" style="padding-left: 15px; padding-right: 15px;">
+                <div>
+                    <div class="row">
+                        <p style="margin-top: 20px">Dataset:</p>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Total population within the locality</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Age distribution broken down by sex</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Median age by sex</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Race</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Living arrangement for adults (18 years and over)</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Place of birth by nativity</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Median household income</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Per capita income</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Income to poverty-level ratio</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Poverty level by place of birth</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Educational attainment by place of birth</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Travel time to work</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn sidemenuitem">Means of transportation to work</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="btn-group" id="disptype" data-toggle="buttons" style="width: 100%;margin-top: 10px;">
-                <label class="btn btn-default blue" style="width: 25%;margin-left: 25%;border-radius: 2px;">
+            <div class="col-md-8">
+                <div class="btn-group" id="disptype" data-toggle="buttons" style="width: 100%;margin-top: 10px;">
+                    <label class="btn btn-default blue" style="width: 25%;margin-left: 25%;border-radius: 2px;">
                     <input type="radio" class="toggle" name="disp" value="county"> Counties
                 </label>
-                <label class="btn btn-default blue active" style="width: 25%;margin-left: 30px;border-radius: 2px;">
+                    <label class="btn btn-default blue active" style="width: 25%;margin-left: 30px;border-radius: 2px;">
                     <input type="radio" class="toggle" checked name="disp" value="state"> States
                 </label>
+                </div>
+                <svg width="720" height="480"></svg>
+                <div style="width: 100%;background-color: #adadad ;height: 110px;margin-top: 15px;">
+                    Road Map
+                </div>
             </div>
-            <svg width="720" height="480"></svg>
-            <div style="width: 100%;background-color: #adadad ;height: 110px;margin-top: 15px;">
-                Road Map
+            <div class="col-md-2">
+                <svg id="pie1" width="200" height="200"></circle></svg>
+                <svg id="pie2" width="200" height="200"><circle r="80" cx="100" cy="100"></circle></svg>
+                <svg id="pie3" width="200" height="200"><circle r="80" cx="100" cy="100"></circle></svg>
             </div>
-        </div>
-        <div class="col-md-2">
-            <svg id="pie1" width="200" height="200"></circle></svg>
-            <svg id="pie2" width="200" height="200"><circle r="80" cx="100" cy="100"></circle></svg>
-            <svg id="pie3" width="200" height="200"><circle r="80" cx="100" cy="100"></circle></svg>
         </div>
     </div>
-</div>
 
-<!--<script src="//d3js.org/d3.v4.min.js"></script>
+    <!--<script src="//d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>-->
-<script src="js/d3.v3.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="js/jquery-3.1.0.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/PapaParse-4.1.2/papaparse.min.js"></script>
-<script src="js/myjs.js"></script>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/PapaParse-4.1.2/papaparse.min.js"></script>
+    <script src="js/myjs.js"></script>
 
 </body>
 

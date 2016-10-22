@@ -115,6 +115,7 @@ function drawMap(error, usdata) {
         .scale(960)
         .translate([width / 2, height / 2]);
 
+
     var path = d3.geo.path()
         .projection(projection);
     svg.selectAll('g').remove();
@@ -130,6 +131,7 @@ function drawMap(error, usdata) {
             })
             .attr("d", path)
             .on("mouseover", function(d) {
+
                 //console.log(arr[0][arr[1].indexOf(d.id)]);
             })
             .on("mouseleave", function(d) {
