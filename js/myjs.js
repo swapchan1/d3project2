@@ -18,8 +18,6 @@ $(document).ready(function() {
 //ready function always takes error and results parameters
 function ready(error, us1, data1) {
 
-    console.log(us1);
-    console.log(data1);
 
     us = us1;
     one = data1;
@@ -133,11 +131,7 @@ function drawMap(error, usdata) {
     arr.push(d);
     arr.push(d1);
 
-    // console.log("main array", arr);
-    // console.log(stateNameObj);
-    //
-    // console.log("county obj", arr);
-    // console.log(countyNameObj);
+
 
     var quantize = d3.scale.linear()
         .domain([d3.min(arr[0]), d3.max(arr[0])])
@@ -154,6 +148,30 @@ function drawMap(error, usdata) {
     if (scselection == "county") {
 
         /**
+         * d3 legend
+         */
+
+
+
+        svg.append("g")
+            .attr("class", "legendLinear")
+            .attr("transform", "translate(200,10)");
+
+        var legendLinear = d3.legend.color()
+            .shapeWidth(30)
+            .orient('horizontal')
+            .cells(10)
+            .labelFormat(d3.format('.2s'))
+            .scale(quantize);
+
+
+
+        /**
+         * d3 legend end code
+         */
+
+
+        /**
          * tooltip code trial
          */
         var tip = d3.tip()
@@ -164,14 +182,17 @@ function drawMap(error, usdata) {
                 var prop = arr[0][arr[1].indexOf(d.id)];
                 var index = parseFloat([arr[1].indexOf(d.id)]);
 
-                return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + prop + "<span>";
+                return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
 
             });
+
         /**
          * tooltip code ends
          */
 
         svg.call(tip);
+        svg.select(".legendLinear")
+            .call(legendLinear);
 
         svg.append("g")
             .attr("class", "counties")
@@ -194,6 +215,17 @@ function drawMap(error, usdata) {
             .classed("states", "true");
     } else {
 
+        svg.append("g")
+            .attr("class", "legendLinear")
+            .attr("transform", "translate(200,10)");
+
+        var legendLinear = d3.legend.color()
+            .shapeWidth(30)
+            .orient('horizontal')
+            .cells(10)
+            .labelFormat(d3.format('.2s'))
+            .scale(quantize);
+
         /**
          * tooltip code trial
          */
@@ -205,7 +237,9 @@ function drawMap(error, usdata) {
                 var prop = arr[0][arr[1].indexOf(d.id)];
                 var index = parseFloat([arr[1].indexOf(d.id)]);
 
-                return "<strong>" + stateNameObj[index][prop] + " : </strong> <span>" + prop + "<span>";
+                console.log(stateNameObj[index][prop]);
+
+                return "<strong>" + stateNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
 
             });
         /**
@@ -213,6 +247,8 @@ function drawMap(error, usdata) {
          */
 
         svg.call(tip);
+        svg.select(".legendLinear")
+            .call(legendLinear);
 
         svg.append("g")
             .selectAll("path")
@@ -220,13 +256,6 @@ function drawMap(error, usdata) {
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
-
-                // console.log(d.id);
-                // console.log(arr[0]);
-                // console.log(arr[1]);
-                // console.log(arr[1].indexOf(d.id));
-                // console.log(quantize(arr[0][arr[1].indexOf(d.id)]));
-
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .classed("states", "true")
