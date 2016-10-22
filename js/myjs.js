@@ -103,7 +103,7 @@ function drawMap(error, usdata) {
 
     if (scselection == "county") {
 
-        // console.log(usdata.splice(0, 1));
+        usdata.splice(0, 1);
         countyNameObj.length = 0;
         usdata.forEach(function(element) {
             var nameObj = {};
@@ -115,7 +115,7 @@ function drawMap(error, usdata) {
                 d1.push(parseInt(element[2] + element[3]));
         });
     } else {
-        // console.log(usdata.splice(0, 1));
+        usdata.splice(0, 1);
         stateNameObj.length = 0;
         usdata.forEach(function(element) {
             var nameObj = {};
