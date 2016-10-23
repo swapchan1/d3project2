@@ -113,6 +113,7 @@ function drawMap(error, usdata) {
     } else {
         usdata.splice(0, 1);
         stateNameObj.length = 0;
+        // console.log("state data", usdata);
         usdata.forEach(function(element) {
             var nameObj = {};
             nameObj[element[1]] = element[0];
@@ -128,7 +129,7 @@ function drawMap(error, usdata) {
     var arr = [];
     arr.push(d);
     arr.push(d1);
-
+    // console.log("full array", arr);
 
     //linear scale for linear gradient from color1 to color2
     var quantize = d3.scale.linear()
@@ -200,7 +201,7 @@ function drawMap(error, usdata) {
             .enter().append("path")
             .style("fill", function(d) {
 
-                // console.log("indexof d.id", arr[0][arr[1].indexOf(d.id)]);
+                //console.log(arr[0][arr[1].indexOf(d.id)]);
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .attr("d", path)
@@ -258,6 +259,8 @@ function drawMap(error, usdata) {
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
+                // console.log("data", d);
+                // console.log("data id", arr[1].indexOf(d.id));
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .classed("states", "true")
@@ -276,8 +279,7 @@ function drawMap(error, usdata) {
 function pieChart(pienumber) {
     if (dataselection == "Total population within the locality") {
         val = "B01003_001E";
-    }
-    else
+    } else
     if (dataselection == "Age distribution broken down by sex") {
         val = "B01001_001E";
         queue()
@@ -305,8 +307,7 @@ function pieChart(pienumber) {
                 });
                 drawPieChart(pienumber, data)
             });
-    }
-    else
+    } else
     if (dataselection == "Median age by sex") {
         val = "B01002_001E";
         queue()
@@ -334,8 +335,7 @@ function pieChart(pienumber) {
                 });
                 drawPieChart(pienumber, data)
             });
-    }
-    else
+    } else
     if (dataselection == "Race") {
         val = "	B02001_001E";
         queue()
@@ -409,12 +409,10 @@ function pieChart(pienumber) {
 
                 drawPieChart(pienumber, data)
             });
-    }
-    else
+    } else
     if (dataselection == "Living arrangement for adults (18 years and over)") {
         val = "B09021_001E";
-    }
-    else
+    } else
     if (dataselection == "Place of birth by nativity") {
         val = "C05002_001E";
         queue()
@@ -442,16 +440,13 @@ function pieChart(pienumber) {
                 });
                 drawPieChart(pienumber, data)
             });
-    }
-    else
+    } else
     if (dataselection == "Median household income") {
         val = "B19013_001E";
-    }
-    else
+    } else
     if (dataselection == "Per capita income") {
         val = "B19301_001E";
-    }
-    else
+    } else
     if (dataselection == "Income to poverty-level ratio") {
         val = "B17002_001E";
         queue()
@@ -569,19 +564,17 @@ function pieChart(pienumber) {
                 });
                 drawPieChart(pienumber, data)
             });
-    }
-    else
+    } else
     if (dataselection == "Poverty level by place of birth") {
         val = "B06012_001E";
 
-    }
-    else
+    } else
     if (dataselection == "Educational attainment by place of birth") {
 
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_007E,B06009_013E,B06009_019E,B06009_025E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_002E,B06009_003E,B06009_004E,B06009_005E,B06009_006E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-            .await(function(error, data1,data2) {
+            .await(function(error, data1, data2) {
                 var sum = 0;
                 var data = [];
                 data1.splice(0, 1);
@@ -675,8 +668,7 @@ function pieChart(pienumber) {
 
                 drawPieChart('pie2', data)
             });
-    }
-    else
+    } else
     if (dataselection == "Travel time to work") {
         val = "B08303_001E";
         queue()
@@ -794,8 +786,7 @@ function pieChart(pienumber) {
                 });
                 drawPieChart(pienumber, data)
             });
-    }
-    else
+    } else
     if (dataselection == "Means of transportation to work") {
         val = "B08301_001E";
         queue()
