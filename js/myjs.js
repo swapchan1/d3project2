@@ -3,8 +3,8 @@ var svg = d3.select("svg"),
     height = +svg.attr("height");
 
 var us, one, two, three;
-var scselection;
-var dataselection;
+var scselection; //state or count selection
+var dataselection; //dataset selection
 
 $(document).ready(function() {
     scselection = $('#disptype input:radio:checked').val();
@@ -17,12 +17,9 @@ $(document).ready(function() {
 
 //ready function always takes error and results parameters
 function ready(error, us1, data1) {
-
-
     us = us1;
     one = data1;
     drawMap(null, one);
-
 }
 
 var stateNameObj = [];
@@ -71,8 +68,8 @@ function baseData(dataselection) {
     return val;
 }
 
-$(".sidemenuitem").click(function() {
-    dataselection = this.innerHTML;
+$("input[name=dataset]").change(function() {
+    dataselection = $('#datasettype input:radio:checked').val();
     var val = baseData(dataselection);
     scselection = $('#disptype input:radio:checked').val();
     queue()
@@ -81,6 +78,7 @@ $(".sidemenuitem").click(function() {
 });
 
 $("input[name=disp]").change(function() {
+    dataselection = $('#datasettype input:radio:checked').val();
     var val = baseData(dataselection);
     scselection = $('#disptype input:radio:checked').val();
     queue()
@@ -132,7 +130,7 @@ function drawMap(error, usdata) {
     arr.push(d1);
 
 
-
+    //linear scale for linear gradient from color1 to color2
     var quantize = d3.scale.linear()
         .domain([d3.min(arr[0]), d3.max(arr[0])])
         .range(["#f7fcfd", "#00441b"]);
@@ -194,6 +192,7 @@ function drawMap(error, usdata) {
         svg.select(".legendLinear")
             .call(legendLinear);
 
+        //to show county borders
         svg.append("g")
             .attr("class", "counties")
             .selectAll("path")
@@ -207,6 +206,8 @@ function drawMap(error, usdata) {
             .attr("d", path)
             .on("mouseover", tip.show)
             .on("mouseleave", tip.hide);
+
+        //to show state borders as well
         svg.append("g")
             .selectAll("path")
             .data(topojson.feature(us, us.objects.states).features)
@@ -250,6 +251,7 @@ function drawMap(error, usdata) {
         svg.select(".legendLinear")
             .call(legendLinear);
 
+        //to show state borders only
         svg.append("g")
             .selectAll("path")
             .data(topojson.feature(us, us.objects.states).features)
@@ -275,6 +277,7 @@ function pieChart(pienumber) {
     if (dataselection == "Total population within the locality") {
         val = "B01003_001E";
     }
+    else
     if (dataselection == "Age distribution broken down by sex") {
         val = "B01001_001E";
         queue()
@@ -303,6 +306,7 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     }
+    else
     if (dataselection == "Median age by sex") {
         val = "B01002_001E";
         queue()
@@ -331,6 +335,7 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     }
+    else
     if (dataselection == "Race") {
         val = "	B02001_001E";
         queue()
@@ -405,9 +410,11 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     }
+    else
     if (dataselection == "Living arrangement for adults (18 years and over)") {
         val = "B09021_001E";
     }
+    else
     if (dataselection == "Place of birth by nativity") {
         val = "C05002_001E";
         queue()
@@ -436,12 +443,15 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     }
+    else
     if (dataselection == "Median household income") {
         val = "B19013_001E";
     }
+    else
     if (dataselection == "Per capita income") {
         val = "B19301_001E";
     }
+    else
     if (dataselection == "Income to poverty-level ratio") {
         val = "B17002_001E";
         queue()
@@ -560,13 +570,113 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     }
+    else
     if (dataselection == "Poverty level by place of birth") {
         val = "B06012_001E";
 
     }
+    else
     if (dataselection == "Educational attainment by place of birth") {
-        val = "B06009_001E";
+
+        queue()
+            .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_007E,B06009_013E,B06009_019E,B06009_025E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+            .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_002E,B06009_003E,B06009_004E,B06009_005E,B06009_006E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+            .await(function(error, data1,data2) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                data1.forEach(function(elem) {
+                    if (elem[1] != null)
+                        sum += parseInt(elem[1]);
+                });
+                data.push({
+                    label: "Born in State of Residence",
+                    val: sum
+                });
+                sum = 0;
+                data1.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[2]);
+                });
+                data.push({
+                    label: "Born in Other State in the United States",
+                    val: sum
+                });
+                sum = 0;
+                data1.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[3]);
+                });
+                data.push({
+                    label: "Native; Born Outside the United States",
+                    val: sum
+                });
+                sum = 0;
+                data1.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[4]);
+                });
+                data.push({
+                    label: "Foreign Born",
+                    val: sum
+                });
+                sum = 0;
+
+                drawPieChart('pie1', data);
+
+
+                var sum = 0;
+                var data = [];
+                data2.splice(0, 1);
+                data2.forEach(function(elem) {
+                    if (elem[1] != null)
+                        sum += parseInt(elem[1]);
+                });
+                data.push({
+                    label: "Less than High School Graduate",
+                    val: sum
+                });
+                sum = 0;
+                data2.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[2]);
+                });
+                data.push({
+                    label: "High School Graduate (Includes Equivalency)",
+                    val: sum
+                });
+                sum = 0;
+                data2.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[3]);
+                });
+                data.push({
+                    label: "Some College or Associate's Degree",
+                    val: sum
+                });
+                sum = 0;
+                data2.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[4]);
+                });
+                data.push({
+                    label: "Bachelor's Degree",
+                    val: sum
+                });
+                sum = 0;
+                data2.forEach(function(elem) {
+                    if (elem[2] != null)
+                        sum += parseInt(elem[5]);
+                });
+                data.push({
+                    label: "Graduate or Professional Degree",
+                    val: sum
+                });
+
+                drawPieChart('pie2', data)
+            });
     }
+    else
     if (dataselection == "Travel time to work") {
         val = "B08303_001E";
         queue()
@@ -685,6 +795,7 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     }
+    else
     if (dataselection == "Means of transportation to work") {
         val = "B08301_001E";
         queue()
@@ -775,6 +886,8 @@ function drawPieChart(pienumber, data1) {
         height = 180,
         radius = Math.min(width, height) / 2;
 
+
+    //ordinal scale to have different colors for different sections
     var color = d3.scale.ordinal()
         .range(['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928']);
 

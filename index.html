@@ -8,61 +8,71 @@
 
 <body>
     <div class="container" style="border-style: solid; border-color: black;border-radius: 10px;">
-        <div class="row1">
+        <div class="row">
             <div class="col-md-2" style="padding-left: 15px; padding-right: 15px;">
-                <div>
-                    <div class="row">
-                        <p style="margin-top: 20px">Dataset:</p>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Total population within the locality</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Age distribution broken down by sex</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Median age by sex</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Race</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Living arrangement for adults (18 years and over)</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Place of birth by nativity</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Median household income</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Per capita income</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Income to poverty-level ratio</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Poverty level by place of birth</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Educational attainment by place of birth</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Travel time to work</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn sidemenuitem">Means of transportation to work</button>
-                    </div>
+                <div class="btn-group" id="datasettype" data-toggle="buttons" style="width: 100%;margin-top: 10px;">
+                    <label class="btn btn-default active" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Total population within the locality">Total population within the locality
+                    </label>
+                    <!--<button class="btn sidemenuitem">Total population within the locality</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Age distribution broken down by sex">Age distribution broken down by sex
+                    </label>
+                    <!--<button class="btn sidemenuitem">Age distribution broken down by sex</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Median age by sex">Median age by sex
+                    </label>
+                    <!--<button class="btn sidemenuitem">Median age by sex</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Race">Race
+                    </label>
+                        <!--<button class="btn sidemenuitem">Race</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Living arrangement for adults (18 years and over)">Living arrangement for adults (18 years and over)
+                    </label>
+                    <!--    <button class="btn sidemenuitem">Living arrangement for adults (18 years and over)</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Place of birth by nativity">Place of birth by nativity
+                    </label>
+                    <!--<button class="btn sidemenuitem">Place of birth by nativity</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Median household income">Median household income
+                    </label>
+                    <!--<button class="btn sidemenuitem">Median household income</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Per capita income">Per capita income
+                    </label>
+                    <!--<button class="btn sidemenuitem">Per capita income</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Income to poverty-level ratio">Income to poverty-level ratio
+                    </label>
+                    <!--<button class="btn sidemenuitem">Income to poverty-level ratio</button>-->
+                   <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Poverty level by place of birth">Poverty level by place of birth
+                    </label>
+                    <!--<button class="btn sidemenuitem">Poverty level by place of birth</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Educational attainment by place of birth">Educational attainment by place of birth
+                    </label>
+                    <!--<button class="btn sidemenuitem">Educational attainment by place of birth</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Travel time to work">Travel time to work
+                    </label>
+                    <!--<button class="btn sidemenuitem">Travel time to work</button>-->
+                    <label class="btn btn-default" style="width: 100%;white-space:normal;border-radius: 2px;">
+                        <input type="radio" class="toggle" name="dataset" value="Means of transportation to work">Means of transportation to work
+                    </label>
+                    <!--<button class="btn sidemenuitem">Means of transportation to work</button>-->
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="btn-group" id="disptype" data-toggle="buttons" style="width: 100%;margin-top: 10px;">
                     <label class="btn btn-default blue" style="width: 25%;margin-left: 25%;border-radius: 2px;">
-                    <input type="radio" class="toggle" name="disp" value="county"> Counties
-                </label>
+                        <input type="radio" class="toggle" name="disp" value="county"> Counties
+                    </label>
                     <label class="btn btn-default blue active" style="width: 25%;margin-left: 30px;border-radius: 2px;">
-                    <input type="radio" class="toggle" checked name="disp" value="state"> States
-                </label>
+                        <input type="radio" class="toggle" checked name="disp" value="state"> States
+                    </label>
                 </div>
                 <svg width="720" height="480"></svg>
                 <div style="width: 100%;background-color: #adadad ;height: 110px;margin-top: 15px;">
@@ -70,8 +80,8 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <svg id="pie1" width="200" height="200"></circle></svg>
-                <svg id="pie2" width="200" height="200"><circle r="80" cx="100" cy="100"></circle></svg>
+                <svg id="pie1" width="200" height="200"></svg>
+                <svg id="pie2" width="200" height="200"></svg>
                 <svg id="pie3" width="200" height="200"><circle r="80" cx="100" cy="100"></circle></svg>
             </div>
         </div>
