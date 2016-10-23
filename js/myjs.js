@@ -25,64 +25,20 @@ function ready(error, us1, data1) {
 var stateNameObj = [];
 var countyNameObj = [];
 
-function baseData(dataselection) {
-    if (dataselection == "Total population within the locality") {
-        val = "B01003_001E";
-    } else
-    if (dataselection == "Age distribution broken down by sex") {
-        val = "B01001_001E";
-    } else
-    if (dataselection == "Median age by sex") {
-        val = "B01002_001E";
-    } else
-    if (dataselection == "Race") {
-        val = "B02001_001E";
-    } else
-    if (dataselection == "Living arrangement for adults (18 years and over)") {
-        val = "B09021_001E";
-    } else
-    if (dataselection == "Place of birth by nativity") {
-        val = "C05002_001E";
-    } else
-    if (dataselection == "Median household income") {
-        val = "B19013_001E";
-    } else
-    if (dataselection == "Per capita income") {
-        val = "B19301_001E";
-    } else
-    if (dataselection == "Income to poverty-level ratio") {
-        val = "B17002_001E";
-    } else
-    if (dataselection == "Poverty level by place of birth") {
-        val = "B06012_001E";
-    } else
-    if (dataselection == "Educational attainment by place of birth") {
-        val = "B06009_001E";
-    } else
-    if (dataselection == "Travel time to work") {
-        val = "B08303_001E";
-    } else
-    if (dataselection == "Means of transportation to work") {
-        val = "B08301_001E";
-    }
-    return val;
-}
-
 $("input[name=dataset]").change(function() {
     dataselection = $('#datasettype input:radio:checked').val();
-    var val = baseData(dataselection);
     scselection = $('#disptype input:radio:checked').val();
+    loadtreemap(dataselection);
     queue()
-        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + val + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
         .await(drawMap);
 });
 
 $("input[name=disp]").change(function() {
     dataselection = $('#datasettype input:radio:checked').val();
-    var val = baseData(dataselection);
     scselection = $('#disptype input:radio:checked').val();
     queue()
-        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + val + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
         .await(drawMap);
 });
 
@@ -180,9 +136,8 @@ function drawMap(error, usdata) {
 
                 var prop = arr[0][arr[1].indexOf(d.id)];
                 var index = parseFloat([arr[1].indexOf(d.id)]);
-
+                //if(index!=-1)
                 return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
-
             });
 
         /**
@@ -219,11 +174,11 @@ function drawMap(error, usdata) {
 
         svg.append("g")
             .attr("class", "legendLinear")
-            .attr("transform", "translate(200,10)");
+            .attr("transform", "translate(650,250)");
 
         var legendLinear = d3.legend.color()
             .shapeWidth(30)
-            .orient('horizontal')
+            .orient('vertical')
             .cells(10)
             .labelFormat(d3.format('.2s'))
             .scale(quantize);

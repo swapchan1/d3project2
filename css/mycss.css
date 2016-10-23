@@ -77,3 +77,13 @@ path
 
     margin: -1px 0 0 0;
 }
+input{
+    visibility: hidden;
+    display: none;
+    white-space: normal;
+}
+label{
+    text-align: center;
+    white-space: normal;
+    padding:3px;
+}
