@@ -60,6 +60,7 @@ function drawMap(error, usdata) {
         usdata.forEach(function(element) {
             var nameObj = {};
             nameObj[element[1]] = element[0];
+
             countyNameObj.push(nameObj);
             if (element[1] > 0)
                 d.push(parseInt(element[1]));
@@ -72,7 +73,8 @@ function drawMap(error, usdata) {
         // console.log("state data", usdata);
         usdata.forEach(function(element) {
             var nameObj = {};
-            nameObj[element[1]] = element[0];
+            nameObj[Math.floor(element[1])] = element[0]; //for age variables
+            nameObj[element[2]] = element[0];
             stateNameObj.push(nameObj);
             if (element[1] > 0)
                 d.push(parseInt(element[1]));
@@ -86,7 +88,7 @@ function drawMap(error, usdata) {
     arr.push(d);
     arr.push(d1);
     // console.log("full array", arr);
-
+    console.log(stateNameObj);
     //linear scale for linear gradient from color1 to color2
     var quantize = d3.scale.linear()
         .domain([d3.min(arr[0]), d3.max(arr[0])])
@@ -170,7 +172,9 @@ function drawMap(error, usdata) {
             .enter().append("path")
             .attr("d", path)
             .classed("states", "true");
-    } else {
+    }
+    // else for state selection
+    else {
 
         svg.append("g")
             .attr("class", "legendLinear")
@@ -192,6 +196,7 @@ function drawMap(error, usdata) {
             .html(function(d) {
 
                 var prop = arr[0][arr[1].indexOf(d.id)];
+                console.log(prop);
                 var index = parseFloat([arr[1].indexOf(d.id)]);
 
                 console.log(stateNameObj[index][prop]);
