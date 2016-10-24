@@ -22,18 +22,12 @@ path
 
 .sidemenuitem
 {
-    font-size: 14px;
-
     width: 100%;
-    height: 7vh;
+    white-space:normal;
+    border-radius: 2px;
+    height:7.5%;
 
-    white-space: normal;
-
-    color: white;
-    border-style: solid;
-    border-top: 1px;
-    border-radius: 0;
-    background-color: #5e5e5e;
+    font-size: 1.3em;
 }
 /**
  * tooltip css

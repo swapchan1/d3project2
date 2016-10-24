@@ -7,6 +7,7 @@ var scselection; //state or count selection
 var dataselection; //dataset selection
 
 $(document).ready(function() {
+    console.log(window.innerWidth,window.innerHeight);
     scselection = $('#disptype input:radio:checked').val();
     dataselection = "Total population within the locality";
     queue()
@@ -93,7 +94,7 @@ function drawMap(error, usdata) {
         .range(["#f7fcfd", "#00441b"]);
 
     var projection = d3.geo.albersUsa()
-        .scale(960)
+        .scale(1040)
         .translate([width / 2, height / 2]);
 
 
@@ -110,11 +111,11 @@ function drawMap(error, usdata) {
 
         svg.append("g")
             .attr("class", "legendLinear")
-            .attr("transform", "translate(200,10)");
+            .attr("transform", "translate(0,250)");
 
         var legendLinear = d3.legend.color()
             .shapeWidth(30)
-            .orient('horizontal')
+            .orient('vertical')
             .cells(10)
             .labelFormat(d3.format('.2s'))
             .scale(quantize);
@@ -174,7 +175,7 @@ function drawMap(error, usdata) {
 
         svg.append("g")
             .attr("class", "legendLinear")
-            .attr("transform", "translate(650,250)");
+            .attr("transform", "translate(0,250)");
 
         var legendLinear = d3.legend.color()
             .shapeWidth(30)
@@ -232,10 +233,10 @@ function drawMap(error, usdata) {
 
 
 function pieChart(pienumber) {
-    if (dataselection == "Total population within the locality") {
+    if (dataselection == "B01003_001E") {
         val = "B01003_001E";
     } else
-    if (dataselection == "Age distribution broken down by sex") {
+    if (dataselection == "B01001_001E") {
         val = "B01001_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01001_002E,B01001_026E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -263,7 +264,7 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     } else
-    if (dataselection == "Median age by sex") {
+    if (dataselection == "B01002_001E") {
         val = "B01002_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01002_002E,B01002_003E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -291,8 +292,8 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     } else
-    if (dataselection == "Race") {
-        val = "	B02001_001E";
+    if (dataselection == "B02001_001E") {
+        val = "B02001_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B02001_002E,B02001_003E,B02001_004E,B02001_005E,B02001_006E,B02001_007E,B02001_008E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
             .await(function(error, data1) {
@@ -365,10 +366,10 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     } else
-    if (dataselection == "Living arrangement for adults (18 years and over)") {
+    if (dataselection == "B09021_001E") {
         val = "B09021_001E";
     } else
-    if (dataselection == "Place of birth by nativity") {
+    if (dataselection == "C05002_001E") {
         val = "C05002_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,C05002_002E,C05002_008E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -396,13 +397,13 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     } else
-    if (dataselection == "Median household income") {
+    if (dataselection == "B19013_001E") {
         val = "B19013_001E";
     } else
-    if (dataselection == "Per capita income") {
+    if (dataselection == "B19301_001E") {
         val = "B19301_001E";
     } else
-    if (dataselection == "Income to poverty-level ratio") {
+    if (dataselection == "B17002_001E") {
         val = "B17002_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B17002_002E,B17002_003E,B17002_004E,B17002_005E,B17002_006E,B17002_007E,B17002_008E,B17002_009E,B17002_010E,B17002_011E,B17002_012E,B17002_013E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -520,12 +521,12 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     } else
-    if (dataselection == "Poverty level by place of birth") {
+    if (dataselection == "B06012_001E") {
         val = "B06012_001E";
 
     } else
-    if (dataselection == "Educational attainment by place of birth") {
-
+    if (dataselection == "B06009_001E") {
+        val = "B06009_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_007E,B06009_013E,B06009_019E,B06009_025E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_002E,B06009_003E,B06009_004E,B06009_005E,B06009_006E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -624,7 +625,7 @@ function pieChart(pienumber) {
                 drawPieChart('pie2', data)
             });
     } else
-    if (dataselection == "Travel time to work") {
+    if (dataselection == "B08303_001E") {
         val = "B08303_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08303_002E,B08303_003E,B08303_004E,B08303_005E,B08303_006E,B08303_007E,B08303_008E,B08303_009E,B08303_010E,B08303_011E,B08303_012E,B08303_013E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -742,7 +743,7 @@ function pieChart(pienumber) {
                 drawPieChart(pienumber, data)
             });
     } else
-    if (dataselection == "Means of transportation to work") {
+    if (dataselection == "B08301_001E") {
         val = "B08301_001E";
         queue()
             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08301_002E,B08301_010E,B08301_016E,B08301_017E,B08301_018E,B08301_019E,B08301_020E,B08301_021E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
@@ -828,8 +829,8 @@ function pieChart(pienumber) {
 
 function drawPieChart(pienumber, data1) {
 
-    var width = 180,
-        height = 180,
+    var width = window.height *0.35,
+        height = window.height *0.35,
         radius = Math.min(width, height) / 2;
 
 
@@ -839,7 +840,7 @@ function drawPieChart(pienumber, data1) {
 
     var arc = d3.svg.arc()
         .outerRadius(radius - 10)
-        .innerRadius(radius - 60);
+        .innerRadius(radius - 80);
 
     var pie = d3.layout.pie()
         .sort(null)
