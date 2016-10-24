@@ -59,8 +59,7 @@ function drawMap(error, usdata) {
         countyNameObj.length = 0;
         usdata.forEach(function(element) {
             var nameObj = {};
-            nameObj[element[1]] = element[0];
-
+            nameObj[Math.floor(element[1])] = element[0];
             countyNameObj.push(nameObj);
             if (element[1] > 0)
                 d.push(parseInt(element[1]));
@@ -70,7 +69,6 @@ function drawMap(error, usdata) {
     } else {
         usdata.splice(0, 1);
         stateNameObj.length = 0;
-        // console.log("state data", usdata);
         usdata.forEach(function(element) {
             var nameObj = {};
             nameObj[Math.floor(element[1])] = element[0]; //for age variables
@@ -87,8 +85,8 @@ function drawMap(error, usdata) {
     var arr = [];
     arr.push(d);
     arr.push(d1);
-    // console.log("full array", arr);
-    console.log(stateNameObj);
+
+
     //linear scale for linear gradient from color1 to color2
     var quantize = d3.scale.linear()
         .domain([d3.min(arr[0]), d3.max(arr[0])])
