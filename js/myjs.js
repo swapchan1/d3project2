@@ -8,7 +8,7 @@ var dataselection; //dataset selection
 
 $(document).ready(function() {
     console.log(window.innerWidth,window.innerHeight);
-    scselection = $('#disptype input:radio:checked').val() ;
+    scselection = $('#disptype input:radio:checked').val() ; //changed
     dataselection = "Total population within the locality";
     queue()
         .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
